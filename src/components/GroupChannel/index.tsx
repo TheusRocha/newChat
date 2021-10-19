@@ -34,7 +34,7 @@ const GroupChannels = ({ groupName }: GroupChannelsProps) => {
           channel={{
             name: 'Canal de voz',
             type: ChannelTypes.voice,
-            users: [1, 2, 3, 4]
+            users: []
           }}
         />
         <Channel

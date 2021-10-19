@@ -12,4 +12,5 @@ export const Wrapper = styled(ContentEditable)`
   word-wrap: break-word;
   outline: none;
   flex-shrink: 0;
+  margin: 24px 48px;
 `

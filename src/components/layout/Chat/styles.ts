@@ -5,5 +5,4 @@ export const Wrapper = styled.section`
   flex-direction: column;
   width: calc(100% - 780px);
   height: 100vh;
-  padding: 24px 48px;
 `
