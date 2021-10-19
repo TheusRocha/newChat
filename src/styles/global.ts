@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styles'
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -16,6 +16,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
+    color: ${({ theme }) => theme.colors.font0};
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
   }
 `
