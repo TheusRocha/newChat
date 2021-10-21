@@ -27,18 +27,17 @@ export const FirstMessageHeader = styled.div<{ isMe: boolean }>`
   display: flex;
   align-items: end;
   flex-direction: ${({ isMe }) => (isMe ? 'row-reverse' : 'row')};
-  font-size: 1.2em;
   margin-bottom: 8px;
 `
 
 export const User = styled.div<{ isMe: boolean }>`
   line-height: 80%;
-  font-size: 1em;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   ${({ isMe }) => (isMe ? 'margin-left: 10px' : 'margin-right: 10px')};
 `
 
 export const Time = styled.div`
-  font-size: 0.8em;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   line-height: 80%;
   color: ${({ theme }) => theme.colors.font1};
 `
@@ -57,15 +56,15 @@ export const MessageBubble = styled.div<{
         `};
   padding: 8px 16px;
   word-break: break-word;
-  font-size: 1.2em;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   ${({ isMe }) =>
     isMe
       ? css`
-          background: #3a7aff;
+          background: ${({ theme }) => theme.colors.blue};
           color: white;
         `
       : css`
           background-color: #27292d;
-          color: #d4d4d4;
+          color: ${({ theme }) => theme.colors.font0};
         `};
 `

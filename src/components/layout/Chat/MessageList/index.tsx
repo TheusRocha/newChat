@@ -1,22 +1,22 @@
+import { useAutoScroll } from 'common/hooks/use-auto-scroll'
 import Message from 'components/Message'
+import { MessageEntity } from 'core/entities/message.entity'
 import * as S from './styles'
 
-const datamock = [
-  { text: 'Thanks for the feedbacks, Richard!', user: 'Matheus' },
-  { text: 'And I hate you Jimmy', user: 'Matheus' },
-  {
-    text: 'Dang, sorry for my late reply, anyway<br>late reply, anyway',
-    user: 'Outro'
-  },
-  { text: 'OK', user: 'Matheus' }
-]
+interface MessageListProps {
+  messages: MessageEntity[]
+}
 
-const MessageList = () => (
-  <S.Wrapper>
-    {datamock.map((message, i) => (
-      <Message key={i} message={message} previousMessage={datamock[i - 1]} />
-    ))}
-  </S.Wrapper>
-)
+const MessageList = ({ messages }: MessageListProps) => {
+  const listRef = useAutoScroll({ messages, offset: 40, smooth: true })
+
+  return (
+    <S.Wrapper ref={listRef}>
+      {messages.map((message, i) => (
+        <Message key={i} message={message} previousMessage={messages[i - 1]} />
+      ))}
+    </S.Wrapper>
+  )
+}
 
 export default MessageList

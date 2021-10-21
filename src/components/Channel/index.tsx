@@ -21,7 +21,7 @@ const Channel = ({ channel }: ChannelProps) => (
     {channel.type === ChannelTypes.voice &&
       channel.users.map((_, i) => (
         <S.VoiceChannelUser key={i}>
-          <S.UserImage src="https://isaojose.com.br/wp-content/uploads/2020/12/blank-profile-picture-mystery-man-avatar-973460.jpg" />
+          <S.UserImage src="https://help.blackboard.com/sites/default/files/images/2019-06/ultra_instr_profile_edits_settings_0.png" />
           <S.ChannelText>Pessoa 1</S.ChannelText>
         </S.VoiceChannelUser>
       ))}

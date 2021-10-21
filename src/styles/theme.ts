@@ -35,7 +35,7 @@ export const theme: Theme = {
     background4: '#292B2F',
     font0: '#D4D4D6',
     font1: '#838383',
-    blue: '#2F80ED',
+    blue: '#0a66c2',
     green: '#3BA55D',
     red: '#ED4245',
     yellow: '#FAA81A'

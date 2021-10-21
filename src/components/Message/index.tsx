@@ -1,13 +1,24 @@
+import { isToday, sameMinute } from 'common/helpers/date-time-helpers'
+import { MessageEntity } from 'core/entities/message.entity'
+import { DateTime } from 'luxon'
 import * as S from './styles'
 
 interface MessageProps {
-  message: any
-  previousMessage: any
+  message: MessageEntity
+  previousMessage: MessageEntity
 }
 
 export const Message = ({ message, previousMessage }: MessageProps) => {
   const isMe = message.user === 'Matheus'
-  const isFirst = !previousMessage || previousMessage.user !== message.user
+
+  const messageDateTime = DateTime.fromISO(message.sendAt)
+
+  const sendSameMinute =
+    previousMessage &&
+    sameMinute([messageDateTime, DateTime.fromISO(previousMessage.sendAt)])
+
+  const isFirst =
+    !previousMessage || previousMessage.user !== message.user || !sendSameMinute
 
   return (
     <S.Wrapper isFirst={isFirst} isMe={isMe}>
@@ -20,7 +31,13 @@ export const Message = ({ message, previousMessage }: MessageProps) => {
       {isFirst && (
         <S.FirstMessageHeader isMe={isMe}>
           <S.User isMe={isMe}>{message.user}</S.User>
-          <S.Time>10:40 PM</S.Time>
+          <S.Time>
+            {messageDateTime.toLocaleString(
+              isToday(messageDateTime)
+                ? DateTime.TIME_SIMPLE
+                : DateTime.DATETIME_SHORT
+            )}
+          </S.Time>
         </S.FirstMessageHeader>
       )}
       <S.MessageBubbleContainer isMe={isMe}>
