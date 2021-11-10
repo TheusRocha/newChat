@@ -11,14 +11,14 @@ export const ChannelHeader = styled.div`
   padding: 6px 8px;
   border-radius: 8px;
   :hover {
-    background: ${({ theme }) => theme.colors.background3};
+    background: ${({ theme }) => theme.colors.gray[700]};
   }
 `
 
 export const ChannelText = styled.span`
   margin-left: 8px;
   margin-bottom: 1px;
-  font-size: ${({ theme }) => theme.fontSizes.md};
+  font-size: ${({ theme }) => theme.fontSizes.xl};
 `
 
 export const VoiceChannelUser = styled.div`
@@ -29,7 +29,7 @@ export const VoiceChannelUser = styled.div`
   margin-left: 24px;
   border-radius: 8px;
   :hover {
-    background: ${({ theme }) => theme.colors.background3};
+    background: ${({ theme }) => theme.colors.gray[700]};
   }
 `
 

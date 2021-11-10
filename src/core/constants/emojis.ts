@@ -1,4 +1,4 @@
-export const t = [
+export const emojiList = [
   {
     id: 'people',
     name: 'Smileys & People',

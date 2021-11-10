@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   height: 72px;
   padding: 16px;
   border-radius: 16px;
-  background-color: ${({ theme }) => theme.colors.background4};
+  background-color: ${({ theme }) => theme.colors.gray[700]};
 `
 export const ProfileImageContainer = styled.div`
   position: relative;
@@ -16,10 +16,10 @@ export const ProfileImageContainer = styled.div`
   ::after {
     content: '';
     position: absolute;
-    background: ${({ theme }) => theme.colors.green};
-    border: 4px solid ${({ theme }) => theme.colors.background4};
-    height: 12px;
-    width: 12px;
+    background: ${({ theme }) => theme.colors.green[600]};
+    border: 4px solid ${({ theme }) => theme.colors.gray[700]};
+    height: 20px;
+    width: 20px;
     border-radius: 10px;
     bottom: -4px;
     right: -4px;
@@ -33,7 +33,7 @@ export const ProfileImage = styled.img`
 `
 
 export const ProfileName = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.lg};
+  font-size: ${({ theme }) => theme.fontSizes['3xl']};
   line-height: 90%;
 `
 
@@ -56,15 +56,8 @@ export const ProfileStatusContainer = styled.div`
 `
 
 export const ProfileStatusText = styled.div`
-  color: ${({ theme }) => theme.colors.font1};
-  font-size: ${({ theme }) => theme.fontSizes.md};
+  color: ${({ theme }) => theme.colors.gray[500]};
+  font-size: ${({ theme }) => theme.fontSizes.xl};
   font-weight: 500;
   line-height: 90%;
-`
-
-export const ProfileStatus = styled.div`
-  height: 8px;
-  width: 8px;
-  border-radius: 4px;
-  background: ${({ theme }) => theme.colors.green};
 `

@@ -1,4 +1,5 @@
 import { isToday, sameMinute } from 'common/helpers/date-time-helpers'
+import MessageOptions from 'components/MessageOptions'
 import { MessageEntity } from 'core/entities/message.entity'
 import { DateTime } from 'luxon'
 import * as S from './styles'
@@ -46,6 +47,7 @@ export const Message = ({ message, previousMessage }: MessageProps) => {
           isMe={isMe}
           dangerouslySetInnerHTML={{ __html: message.text }}
         />
+        <MessageOptions isMe={isMe} />
       </S.MessageBubbleContainer>
     </S.Wrapper>
   )

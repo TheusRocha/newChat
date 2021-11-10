@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
 `
 export const MainActionText = styled.span`
   margin-left: 16px;
-  font-size: ${({ theme }) => theme.fontSizes.md};
+  font-size: ${({ theme }) => theme.fontSizes.xl};
   margin-bottom: 3px;
 `
 export const TitleContainer = styled.div`

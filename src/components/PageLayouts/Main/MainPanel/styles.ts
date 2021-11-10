@@ -3,8 +3,9 @@ import styled from 'styles'
 export const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
-  background: ${({ theme }) => theme.colors.background1};
-  width: 360px;
+  flex-shrink: 0;
+  background: ${({ theme }) => theme.colors.gray[800]};
+  width: 320px;
   height: 100vh;
   padding: 24px 32px;
 

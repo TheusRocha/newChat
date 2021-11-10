@@ -1,5 +1,5 @@
-import Bubble from 'components/Bubble'
 import { ReactNode } from 'react'
+import { Tag } from '@chakra-ui/react'
 import * as S from './styles'
 
 interface MainActionProps {
@@ -14,7 +14,7 @@ const MainAction = ({ icon, text, bubbleCount }: MainActionProps) => (
       {icon}
       <S.MainActionText>{text}</S.MainActionText>
     </S.TitleContainer>
-    {!!bubbleCount && <Bubble count={bubbleCount} />}
+    {!!bubbleCount && <Tag borderRadius="full"> {bubbleCount} </Tag>}
   </S.Wrapper>
 )
 

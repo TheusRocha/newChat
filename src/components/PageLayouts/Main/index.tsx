@@ -1,16 +1,16 @@
-import Dock from 'components/layout/Dock'
+import Dock from 'components/PageLayouts/Main/Dock'
+import { Page } from 'components/Page'
 import Chat from './Chat'
 import MainPanel from './MainPanel'
 import Sidebar from './Sidebar'
-import * as S from './styles'
 
 const Main = () => (
-  <S.Wrapper>
+  <Page>
     <Dock />
     <MainPanel />
     <Chat />
     <Sidebar />
-  </S.Wrapper>
+  </Page>
 )
 
 export default Main

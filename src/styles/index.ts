@@ -1,6 +1,6 @@
 import * as styledComponents from 'styled-components'
 import { ThemedStyledComponentsModule } from 'styled-components'
-import { Theme } from './theme'
+import { Theme } from '@chakra-ui/theme/dist/types/index'
 
 const {
   default: styled,
