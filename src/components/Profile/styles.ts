@@ -18,8 +18,8 @@ export const ProfileImageContainer = styled.div`
     position: absolute;
     background: ${({ theme }) => theme.colors.green[600]};
     border: 4px solid ${({ theme }) => theme.colors.gray[700]};
-    height: 20px;
-    width: 20px;
+    height: 18px;
+    width: 18px;
     border-radius: 10px;
     bottom: -4px;
     right: -4px;
