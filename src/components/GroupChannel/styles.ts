@@ -1,3 +1,4 @@
+import { MdKeyboardArrowDown } from 'react-icons/md'
 import styled, { css } from 'styles'
 
 export const Wrapper = styled.div``
@@ -12,14 +13,25 @@ export const Header = styled.div`
   margin-bottom: 4px;
 `
 
-export const Panel = styled.div<{ collapsed: boolean }>`
+export const Panel = styled.div<{ $collapsed: boolean }>`
   overflow: hidden;
   transition: height 0.1s;
   height: calc(100% - 28px);
 
-  ${({ collapsed }) =>
-    collapsed &&
+  ${({ $collapsed }) =>
+    $collapsed &&
     css`
       height: 0px;
+    `}
+`
+export const CollapsedArrow = styled(MdKeyboardArrowDown)<{
+  $collapsed: boolean
+}>`
+  cursor: pointer;
+  transition: transform 0.1s;
+  ${({ $collapsed }) =>
+    $collapsed &&
+    css`
+      transform: rotate(-90deg);
     `}
 `

@@ -13,6 +13,7 @@ emoji.replace_mode = 'unified'
 
 const UserInput = () => {
   const [inputValue, setInputValue] = useState('')
+  const [sending, setSending] = useState('')
 
   const name = useRecoilValue(getUserName)
   const [value, setValue] = useRecoilState(messages)
@@ -34,21 +35,29 @@ const UserInput = () => {
 
   const onSubmit = () => {
     const sanitizedText = inputValue.replace(/&nbsp;/g, ' ').trim()
-    sanitizedText &&
+    if (sanitizedText) {
       addMessage({
         user: name,
         text: sanitizedText,
         sendAt: DateTime.now().toISO()
       })
+      setSending('sending')
+      setTimeout(() => {
+        setSending('')
+      }, 600)
+    }
     setInputValue('')
   }
 
   return (
-    <S.Wrapper
-      onChange={handleChange}
-      onKeyDown={handleKeyDown}
-      html={inputValue}
-    />
+    <S.Wrapper>
+      <S.UserInputField
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        html={inputValue}
+      />
+      <S.SendMessageIcon className={sending} onClick={onSubmit} />
+    </S.Wrapper>
   )
 }
 

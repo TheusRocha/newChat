@@ -1,8 +1,7 @@
 import * as S from './styles'
-import { MdKeyboardArrowDown } from 'react-icons/md'
+import Channel from 'components/Channel'
 import { Margin } from 'components/Margin'
 import { ChannelTypes } from 'core/entities/channel.entity'
-import Channel from 'components/Channel'
 import { useState } from 'react'
 
 interface GroupChannelsProps {
@@ -15,14 +14,15 @@ const GroupChannels = ({ groupName }: GroupChannelsProps) => {
     <S.Wrapper>
       <S.Header>
         <Margin right="8px">
-          <MdKeyboardArrowDown
+          <S.CollapsedArrow
+            $collapsed={collapsed}
             onClick={() => setCollapsed(!collapsed)}
             size={20}
           />
         </Margin>
         {groupName}
       </S.Header>
-      <S.Panel collapsed={collapsed}>
+      <S.Panel $collapsed={collapsed}>
         <Channel
           channel={{
             name: 'Canal de texto',

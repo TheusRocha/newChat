@@ -1,6 +1,7 @@
 import { username } from 'common/recoil/atoms'
 import ClickableText from 'components/ClickableText'
 import ErrorMessage from 'components/ErrorMessage'
+import { isValidEmail } from 'core/constants/patterns'
 import { useRouter } from 'next/dist/client/router'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useRecoilState } from 'recoil'
@@ -17,6 +18,7 @@ const FormSide = () => {
     handleSubmit,
     formState: { errors }
   } = useForm()
+
   const router = useRouter()
 
   const [, setName] = useRecoilState(username)
@@ -25,9 +27,6 @@ const FormSide = () => {
     setName(data.email.split('@')[0])
     router.push('main')
   }
-
-  const isValidEmail =
-    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
   return (
     <S.Wrapper onSubmit={handleSubmit(onSubmit)}>
@@ -62,7 +61,7 @@ const FormSide = () => {
               })}
             />
             <ErrorMessage fieldName="password" errors={errors} />
-            <ClickableText style={{ marginTop: '4px' }}>
+            <ClickableText style={{ marginTop: '8px' }}>
               Esqueceu sua senha?
             </ClickableText>
           </div>
