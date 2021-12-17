@@ -1,10 +1,12 @@
+import ProfileImage from 'components/ProfileImage'
 import * as S from './styles'
 
 const Profile = () => (
   <S.Wrapper>
-    <S.ProfileImageContainer>
-      <S.ProfileImage src="https://isaojose.com.br/wp-content/uploads/2020/12/blank-profile-picture-mystery-man-avatar-973460.jpg" />
-    </S.ProfileImageContainer>
+    <ProfileImage
+      size={40}
+      src="https://isaojose.com.br/wp-content/uploads/2020/12/blank-profile-picture-mystery-man-avatar-973460.jpg"
+    />
     <S.ProfileNameContainer>
       <S.ProfileName>Jimmy</S.ProfileName>
       <S.ProfileStatusContainer>

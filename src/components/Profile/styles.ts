@@ -9,28 +9,6 @@ export const Wrapper = styled.div`
   border-radius: 16px;
   background-color: ${({ theme }) => theme.colors.gray[700]};
 `
-export const ProfileImageContainer = styled.div`
-  position: relative;
-  height: 40px;
-  flex-shrink: 0;
-  ::after {
-    content: '';
-    position: absolute;
-    background: ${({ theme }) => theme.colors.green[600]};
-    border: 4px solid ${({ theme }) => theme.colors.gray[700]};
-    height: 18px;
-    width: 18px;
-    border-radius: 10px;
-    bottom: -4px;
-    right: -4px;
-  }
-`
-
-export const ProfileImage = styled.img`
-  height: 40px;
-  width: 40px;
-  border-radius: 20px;
-`
 
 export const ProfileName = styled.span`
   font-size: ${({ theme }) => theme.fontSizes['3xl']};

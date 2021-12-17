@@ -2,6 +2,7 @@ import styled from 'styles'
 
 const ErrorMessageContainer = styled.span`
   color: ${({ theme }) => theme.colors.red[400]};
+  font-size: ${({ theme }) => theme.fontSizes.lg};
 `
 
 const ErrorMessage = ({

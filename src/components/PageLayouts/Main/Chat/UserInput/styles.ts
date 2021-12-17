@@ -28,7 +28,7 @@ export const SendMessageIcon = styled(RiSendPlaneFill)`
   font-size: 24px;
 
   &.sending {
-    animation: sampleanimation 0.5s forwards;
+    animation: sampleanimation 0.4s forwards;
   }
 
   @keyframes sampleanimation {

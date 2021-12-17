@@ -1,7 +1,10 @@
 import { isToday, sameMinute } from 'common/helpers/date-time-helpers'
+import { getUser } from 'common/recoil/selectors'
 import MessageOptions from 'components/MessageOptions'
 import { MessageEntity } from 'core/entities/message.entity'
 import { DateTime } from 'luxon'
+import { memo } from 'react'
+import { useRecoilValue } from 'recoil'
 import * as S from './styles'
 
 interface MessageProps {
@@ -9,8 +12,10 @@ interface MessageProps {
   previousMessage: MessageEntity
 }
 
-export const Message = ({ message, previousMessage }: MessageProps) => {
-  const isMe = message.user === 'Matheus'
+const Message = ({ message, previousMessage }: MessageProps) => {
+  const user = useRecoilValue(getUser)
+
+  const isMe = message.user.id === user.id
 
   const messageDateTime = DateTime.fromISO(message.sendAt)
 
@@ -19,7 +24,9 @@ export const Message = ({ message, previousMessage }: MessageProps) => {
     sameMinute([messageDateTime, DateTime.fromISO(previousMessage.sendAt)])
 
   const isFirst =
-    !previousMessage || previousMessage.user !== message.user || !sendSameMinute
+    !previousMessage ||
+    previousMessage.user.id !== message.user.id ||
+    !sendSameMinute
 
   return (
     <S.Wrapper isFirst={isFirst} isMe={isMe}>
@@ -31,7 +38,7 @@ export const Message = ({ message, previousMessage }: MessageProps) => {
       )}
       {isFirst && (
         <S.FirstMessageHeader isMe={isMe}>
-          <S.User isMe={isMe}>{message.user}</S.User>
+          <S.User isMe={isMe}>{message.user.username}</S.User>
           <S.Time>
             {messageDateTime.toLocaleString(
               isToday(messageDateTime)
@@ -53,4 +60,4 @@ export const Message = ({ message, previousMessage }: MessageProps) => {
   )
 }
 
-export default Message
+export default memo(Message)
