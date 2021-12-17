@@ -39,3 +39,12 @@ export const MESSAGES = gql`
     }
   }
 `
+export const ME = gql`
+  query Query {
+    me {
+      id: _id
+      email
+      username
+    }
+  }
+`

@@ -5,16 +5,18 @@ import { isValidEmail } from 'core/constants/patterns'
 import { useRouter } from 'next/dist/client/router'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import * as S from '../styles'
-import { useMutation } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { useToast } from '@chakra-ui/toast'
-import { useRecoilState } from 'recoil'
-import { authState, userState } from 'common/recoil/atoms'
 import { LOGIN } from 'common/graphql/mutations'
+import { setCookie } from 'common/helpers/cookies'
+import { ME } from 'common/graphql/queries'
 
 interface LoginFormValues {
   email: string
   password: string
 }
+
+const EXPIRATION_TIME = 604800 // 1 week
 
 interface LoginFormProps {
   setRegisterForm: Dispatch<SetStateAction<boolean>>
@@ -28,15 +30,15 @@ const LoginForm = ({ setRegisterForm }: LoginFormProps) => {
   } = useForm()
 
   const toast = useToast()
+  const router = useRouter()
+  const { data } = useQuery(ME)
 
-  const [, setAuth] = useRecoilState(authState)
-  const [, setUser] = useRecoilState(userState)
+  data && router.push('main')
 
   const [login, { loading }] = useMutation(LOGIN, {
     onCompleted: (res) => {
-      const { token, ...restData } = res.login
-      setAuth(token)
-      setUser(restData)
+      const { token } = res.login
+      setCookie('token', token, EXPIRATION_TIME)
       router.push('main')
     },
     onError: (error) => {
@@ -49,8 +51,6 @@ const LoginForm = ({ setRegisterForm }: LoginFormProps) => {
         })
     }
   })
-
-  const router = useRouter()
 
   const onSubmit: SubmitHandler<LoginFormValues> = (data) => {
     login({ variables: data })

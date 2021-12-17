@@ -15,6 +15,8 @@ import {
   HttpLink,
   from
 } from '@apollo/client'
+import { setContext } from '@apollo/client/link/context'
+import { getCookie } from 'common/helpers/cookies'
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
@@ -31,8 +33,18 @@ const httpLink = new HttpLink({
   uri: 'http://localhost:4000/graphql'
 })
 
+const authLink = setContext((_, { headers }) => {
+  const token = getCookie('token')
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : ''
+    }
+  }
+})
+
 const client = new ApolloClient({
-  link: from([httpLink, errorLink]),
+  link: from([authLink, httpLink, errorLink]),
   cache: new InMemoryCache()
 })
 

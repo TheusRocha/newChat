@@ -1,11 +1,20 @@
-import { getUser } from 'common/recoil/selectors'
+import { useQuery } from '@apollo/client'
+import { ME } from 'common/graphql/queries'
 import Main from 'components/PageLayouts/Main'
-import { useRecoilValue } from 'recoil'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 export default function MainPage() {
-  const user = useRecoilValue(getUser)
+  const router = useRouter()
+  const { error, data } = useQuery(ME)
 
-  if (!user) return null
+  useEffect(() => {
+    error && router.push('login')
+  }, [error, router])
 
-  return <Main user={user} />
+  if (!data?.me) {
+    return null
+  }
+
+  return <Main user={data.me} />
 }

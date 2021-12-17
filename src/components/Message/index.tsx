@@ -1,10 +1,10 @@
+import { useQuery } from '@apollo/client'
+import { ME } from 'common/graphql/queries'
 import { isToday, sameMinute } from 'common/helpers/date-time-helpers'
-import { getUser } from 'common/recoil/selectors'
 import MessageOptions from 'components/MessageOptions'
 import { MessageEntity } from 'core/entities/message.entity'
 import { DateTime } from 'luxon'
 import { memo } from 'react'
-import { useRecoilValue } from 'recoil'
 import * as S from './styles'
 
 interface MessageProps {
@@ -13,9 +13,9 @@ interface MessageProps {
 }
 
 const Message = ({ message, previousMessage }: MessageProps) => {
-  const user = useRecoilValue(getUser)
+  const { data } = useQuery(ME)
 
-  const isMe = message.user.id === user.id
+  const isMe = message.user.id === data.me?.id
 
   const messageDateTime = DateTime.fromISO(message.sendAt)
 

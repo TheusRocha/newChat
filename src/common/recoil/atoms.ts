@@ -1,16 +1,5 @@
 import { SessionEntity } from 'core/entities/session.entity'
-import { UserEntity } from 'core/entities/user.entity'
 import { atom } from 'recoil'
-
-export const userState = atom<UserEntity | null>({
-  key: 'user',
-  default: null
-})
-
-export const authState = atom({
-  key: 'auth',
-  default: null
-})
 
 export const sessionsState = atom<SessionEntity[]>({
   key: 'sessions',

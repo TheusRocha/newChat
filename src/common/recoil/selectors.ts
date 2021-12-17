@@ -1,17 +1,5 @@
 import { selector } from 'recoil'
-import {
-  currentServerState,
-  messagesState,
-  sessionsState,
-  userState
-} from './atoms'
-
-export const getUser = selector({
-  key: 'getUser',
-  get: ({ get }) => {
-    return get(userState)
-  }
-})
+import { currentServerState, messagesState, sessionsState } from './atoms'
 
 export const getMessages = selector({
   key: 'getMessages',

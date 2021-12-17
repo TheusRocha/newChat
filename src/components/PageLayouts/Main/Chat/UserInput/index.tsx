@@ -4,9 +4,10 @@ import { ContentEditableEvent } from 'react-contenteditable'
 import * as S from './styles'
 import { MessageEntity } from 'core/entities/message.entity'
 import { DateTime } from 'luxon'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import { getUser } from 'common/recoil/selectors'
+import { useRecoilState } from 'recoil'
 import { messagesState } from 'common/recoil/atoms'
+import { ME } from 'common/graphql/queries'
+import { useQuery } from '@apollo/client'
 
 const emoji = new EmojiConvertor()
 emoji.replace_mode = 'unified'
@@ -15,7 +16,7 @@ const UserInput = () => {
   const [inputValue, setInputValue] = useState('')
   const [sending, setSending] = useState('')
 
-  const user = useRecoilValue(getUser)
+  const { data } = useQuery(ME)
   const [value, setValue] = useRecoilState(messagesState)
 
   const addMessage = (newvalue: MessageEntity) => {
@@ -37,7 +38,7 @@ const UserInput = () => {
     const sanitizedText = inputValue.replace(/&nbsp;/g, ' ').trim()
     if (sanitizedText) {
       addMessage({
-        user: user,
+        user: data.me,
         text: sanitizedText,
         sendAt: DateTime.now().toISO()
       })
