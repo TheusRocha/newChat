@@ -1,10 +1,9 @@
-import { MessageEntity } from './message.entity'
+import { StringValueNode } from 'graphql'
 import { UserEntity } from './user.entity'
 
 export interface SessionEntity {
   id: string
   isPrivate: boolean
-  name: string
-  messages: MessageEntity[]
+  name: StringValueNode
   users: UserEntity[]
 }

@@ -66,7 +66,7 @@ export const MessageBubble = styled.div<{
   ${({ isMe }) =>
     isMe
       ? css`
-          background: ${({ theme }) => theme.colors.blue[600]};
+          background: ${({ theme }) => theme.colors.blue[500]};
           color: white;
         `
       : css`

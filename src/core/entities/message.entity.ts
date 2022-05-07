@@ -2,6 +2,6 @@ import { UserEntity } from './user.entity'
 
 export interface MessageEntity {
   text: string
-  user: UserEntity
+  senderUser: UserEntity
   sendAt: string
 }

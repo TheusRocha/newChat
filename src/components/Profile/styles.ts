@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
 `
 
 export const ProfileName = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes['3xl']};
+  font-size: ${({ theme }) => theme.fontSizes['2xl']};
   line-height: 90%;
 `
 

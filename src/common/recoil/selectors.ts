@@ -1,12 +1,5 @@
 import { selector } from 'recoil'
-import { currentServerState, messagesState, sessionsState } from './atoms'
-
-export const getMessages = selector({
-  key: 'getMessages',
-  get: ({ get }) => {
-    return get(messagesState)
-  }
-})
+import { currentServerState, currentSessionState } from './atoms'
 
 export const getCurrentScenario = selector({
   key: 'getCurrentScenario',
@@ -15,9 +8,9 @@ export const getCurrentScenario = selector({
   }
 })
 
-export const getSessions = selector({
-  key: 'getSessions',
+export const getCurrentSession = selector({
+  key: 'getCurrentSession',
   get: ({ get }) => {
-    return get(sessionsState)
+    return get(currentSessionState)
   }
 })

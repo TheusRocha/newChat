@@ -1,18 +1,36 @@
+import { useQuery } from '@apollo/client'
+import { MESSAGES } from 'common/graphql/queries'
 import { useAutoScroll } from 'common/hooks/use-auto-scroll'
-import { getMessages } from 'common/recoil/selectors'
+import { getCurrentSession } from 'common/recoil/selectors'
 import Message from 'components/Message'
+import { MessageEntity } from 'core/entities/message.entity'
 import { useRecoilValue } from 'recoil'
 import * as S from './styles'
 
 const MessageList = () => {
-  const messages = useRecoilValue(getMessages)
-  const listRef = useAutoScroll({ messages, offset: 40, smooth: true })
+  const currentSession = useRecoilValue(getCurrentSession)
+  const { data: messagesData } = useQuery<{ messages: MessageEntity[] }>(
+    MESSAGES,
+    {
+      variables: { sessionId: currentSession }
+    }
+  )
+  const listRef = useAutoScroll({
+    messages: messagesData?.messages || [],
+    offset: 40,
+    smooth: true
+  })
 
   return (
     <S.Wrapper ref={listRef}>
-      {messages.map((message, i) => (
-        <Message key={i} message={message} previousMessage={messages[i - 1]} />
-      ))}
+      {!!messagesData?.messages?.length &&
+        messagesData.messages.map((message, i) => (
+          <Message
+            key={i}
+            message={message}
+            previousMessage={messagesData.messages[i - 1]}
+          />
+        ))}
     </S.Wrapper>
   )
 }

@@ -4,24 +4,41 @@ import { ContentEditableEvent } from 'react-contenteditable'
 import * as S from './styles'
 import { MessageEntity } from 'core/entities/message.entity'
 import { DateTime } from 'luxon'
-import { useRecoilState } from 'recoil'
-import { messagesState } from 'common/recoil/atoms'
-import { ME } from 'common/graphql/queries'
-import { useQuery } from '@apollo/client'
+import { ME, MESSAGES } from 'common/graphql/queries'
+import { gql, useMutation, useQuery } from '@apollo/client'
+import { useRecoilValue } from 'recoil'
+import { getCurrentSession } from 'common/recoil/selectors'
+import { SEND_MESSAGE } from 'common/graphql/mutations'
 
 const emoji = new EmojiConvertor()
 emoji.replace_mode = 'unified'
 
 const UserInput = () => {
   const [inputValue, setInputValue] = useState('')
-  const [sending, setSending] = useState('')
+  const [sending, setSending] = useState(false)
+  const currentSession = useRecoilValue(getCurrentSession)
 
-  const { data } = useQuery(ME)
-  const [value, setValue] = useRecoilState(messagesState)
-
-  const addMessage = (newvalue: MessageEntity) => {
-    setValue([...value, newvalue])
-  }
+  const { data: dataMe } = useQuery(ME)
+  const [sendMessage] = useMutation(SEND_MESSAGE, {
+    update(cache, { data: { sendMessage } }) {
+      cache.modify({
+        fields: {
+          messages(existingMessages = []) {
+            const newMessageRef = cache.writeFragment({
+              data: sendMessage,
+              fragment: gql`
+                fragment NewMessage on Message {
+                  id
+                  type
+                }
+              `
+            })
+            return [...existingMessages, newMessageRef]
+          }
+        }
+      })
+    }
+  })
 
   const handleChange = (e: ContentEditableEvent) => {
     setInputValue(emoji.replace_colons(e.target.value))
@@ -37,14 +54,18 @@ const UserInput = () => {
   const onSubmit = () => {
     const sanitizedText = inputValue.replace(/&nbsp;/g, ' ').trim()
     if (sanitizedText) {
-      addMessage({
-        user: data.me,
-        text: sanitizedText,
-        sendAt: DateTime.now().toISO()
+      sendMessage({
+        variables: {
+          text: sanitizedText,
+          senderUserId: dataMe.me.id,
+          sessionId: currentSession,
+          sendAt: DateTime.now().toISO(),
+          quoteMessageId: null
+        }
       })
-      setSending('sending')
+      setSending(true)
       setTimeout(() => {
-        setSending('')
+        setSending(false)
       }, 400)
     }
     setInputValue('')
@@ -57,7 +78,10 @@ const UserInput = () => {
         onKeyDown={handleKeyDown}
         html={inputValue}
       />
-      <S.SendMessageIcon className={sending} onClick={onSubmit} />
+      <S.SendMessageIcon
+        className={sending ? 'sending' : ''}
+        onClick={onSubmit}
+      />
     </S.Wrapper>
   )
 }

@@ -20,3 +20,33 @@ export const REGISTER = gql`
     }
   }
 `
+
+export const SEND_MESSAGE = gql`
+  mutation SendMessage(
+    $text: String!
+    $senderUserId: String!
+    $sessionId: String!
+    $sendAt: String!
+    $quoteMessageId: String
+  ) {
+    sendMessage(
+      text: $text
+      senderUserId: $senderUserId
+      sessionId: $sessionId
+      sendAt: $sendAt
+      quoteMessageId: $quoteMessageId
+    ) {
+      id: _id
+      senderUser {
+        email
+        username
+        id: _id
+      }
+      text
+      sendAt
+      quotedMessage {
+        id: _id
+      }
+    }
+  }
+`

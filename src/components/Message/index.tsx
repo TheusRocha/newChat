@@ -15,7 +15,7 @@ interface MessageProps {
 const Message = ({ message, previousMessage }: MessageProps) => {
   const { data } = useQuery(ME)
 
-  const isMe = message.user.id === data.me?.id
+  const isMe = message.senderUser.id === data.me?.id
 
   const messageDateTime = DateTime.fromISO(message.sendAt)
 
@@ -25,7 +25,7 @@ const Message = ({ message, previousMessage }: MessageProps) => {
 
   const isFirst =
     !previousMessage ||
-    previousMessage.user.id !== message.user.id ||
+    previousMessage.senderUser.id !== message.senderUser.id ||
     !sendSameMinute
 
   return (
@@ -38,7 +38,7 @@ const Message = ({ message, previousMessage }: MessageProps) => {
       )}
       {isFirst && (
         <S.FirstMessageHeader isMe={isMe}>
-          <S.User isMe={isMe}>{message.user.username}</S.User>
+          <S.User isMe={isMe}>{message.senderUser.username}</S.User>
           <S.Time>
             {messageDateTime.toLocaleString(
               isToday(messageDateTime)

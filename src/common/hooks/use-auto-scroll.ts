@@ -15,7 +15,7 @@ export const useAutoScroll = ({
   const listRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (listRef?.current) {
+    if (listRef?.current && messages.length) {
       const lastChild = listRef.current.lastChild as HTMLDivElement
       if (
         listRef.current.scrollHeight -
