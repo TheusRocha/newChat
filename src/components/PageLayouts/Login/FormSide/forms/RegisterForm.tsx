@@ -7,15 +7,16 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import * as S from '../styles'
 import { useToast } from '@chakra-ui/toast'
 import { useMutation } from '@apollo/client'
-import { authState, userState } from 'common/recoil/atoms'
-import { useRecoilState } from 'recoil'
 import { REGISTER } from 'common/graphql/mutations'
+import { setCookie } from 'common/helpers/cookies'
 
 interface RegisterFormValues {
   email: string
   password: string
   username: string
 }
+
+const EXPIRATION_TIME = 604800 // 1 week
 
 interface RegisterFormProps {
   setRegisterForm: Dispatch<SetStateAction<boolean>>
@@ -30,14 +31,10 @@ const RegisterForm = ({ setRegisterForm }: RegisterFormProps) => {
     formState: { errors }
   } = useForm()
 
-  const [, setAuth] = useRecoilState(authState)
-  const [, setUser] = useRecoilState(userState)
-
   const [registerUser, { loading }] = useMutation(REGISTER, {
     onCompleted: (res) => {
-      const { token, ...restData } = res.register
-      setAuth(token)
-      setUser(restData)
+      const { token } = res.login
+      setCookie('token', token, EXPIRATION_TIME)
       router.push('main')
     },
     onError: (error) => {
