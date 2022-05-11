@@ -33,7 +33,7 @@ const RegisterForm = ({ setRegisterForm }: RegisterFormProps) => {
 
   const [registerUser, { loading }] = useMutation(REGISTER, {
     onCompleted: (res) => {
-      const { token } = res.login
+      const { token } = res.register
       setCookie('token', token, EXPIRATION_TIME)
       router.push('main')
     },

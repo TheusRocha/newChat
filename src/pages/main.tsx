@@ -9,7 +9,7 @@ export default function MainPage() {
   const { error, data } = useQuery(ME)
 
   useEffect(() => {
-    error && router.push('login')
+    error && router.push('/')
   }, [error, router])
 
   if (!data?.me) {
