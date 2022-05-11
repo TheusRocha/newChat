@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import ReactContentEditable, { Props } from 'react-contenteditable'
+import ReactContentEditable from 'react-contenteditable'
 
 export default function ContentEditable({
   onChange,
@@ -8,7 +8,7 @@ export default function ContentEditable({
   onKeyPress,
   onKeyDown,
   ...props
-}: Props) {
+}) {
   const onChangeRef = useRef(onChange)
   const onInputRef = useRef(onInput)
   const onBlurRef = useRef(onBlur)
